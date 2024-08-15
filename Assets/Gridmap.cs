@@ -8,8 +8,8 @@ public class Gridmap : MonoBehaviour
     Node[,] gridmap;
     [SerializeField] int width = 25;
     [SerializeField] int length = 25;
-    [SerializeField] private float cellSize = 1f;
-    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] float cellSize = 1f;
+    [SerializeField] LayerMask obstacleLayer;
     private void Start()
     {
         GenerateGrid();
