@@ -24,7 +24,7 @@ public class Gridmap : MonoBehaviour
         }
         else
         {
-            Debug.Log("You are trying to place the object outside the boundries!");
+            Debug.Log("You are trying to place the object outside the boundaries!");
         }
     }
 
