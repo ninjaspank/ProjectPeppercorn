@@ -41,11 +41,11 @@ public class Pathfinding : MonoBehaviour
     {
         if (gridMap == null) { gridMap = GetComponent<Grid>(); }
 
-        pathNodes = new PathNode[gridMap.width, gridMap.length];
+        pathNodes = new PathNode[gridMap.length, gridMap.width];
 
-        for (int x = 0; x < gridMap.width; x++)
+        for (int x = 0; x < gridMap.length; x++)
         {
-            for (int y = 0; y < gridMap.length; y++)
+            for (int y = 0; y < gridMap.width; y++)
             {
                 pathNodes[x, y] = new PathNode(x, y);
             }
