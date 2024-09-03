@@ -152,7 +152,7 @@ public class Gridmap : MonoBehaviour
 
     }
 
-    private Vector3 GetWorldPosition(int x, int y, bool elevation = false)
+    public Vector3 GetWorldPosition(int x, int y, bool elevation = false)
     {
         return new Vector3(x * cellSize, elevation == true ? gridmap[x,y].elevation : 0f, y * cellSize);
     }
