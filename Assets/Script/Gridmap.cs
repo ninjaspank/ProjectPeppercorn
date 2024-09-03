@@ -7,8 +7,8 @@ using Vector2 = System.Numerics.Vector2;
 public class Gridmap : MonoBehaviour
 {
     Node[,] gridmap;
-    [SerializeField] int width = 25;
-    [SerializeField] int length = 25;
+    public int width = 25;
+    public int length = 25;
     [SerializeField] float cellSize = 1f;
     [SerializeField] LayerMask obstacleLayer;
     [SerializeField] LayerMask terrainLayer;
@@ -42,6 +42,21 @@ public class Gridmap : MonoBehaviour
 
         return true;
     }
+
+    internal bool CheckBoundry(int posX, int posY)
+    {
+        if (posX < 0 || posX >= length)
+        {
+            return false;
+        }
+        if (posY < 0 || posY >= width)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
     private void GenerateGrid()
     {
         gridmap = new Node[length, width];
@@ -98,6 +113,11 @@ public class Gridmap : MonoBehaviour
         }
     }
 
+    public bool CheckWalkable(int pos_x, int pos_y)
+    {
+        return gridmap[pos_x, pos_y].passable;
+    }
+    
     public Vector2Int GetGridPosition(Vector3 worldPosition)
     {
         Vector2Int positionOnGrid = new Vector2Int((int)(worldPosition.x / cellSize), (int)(worldPosition.z / cellSize));
