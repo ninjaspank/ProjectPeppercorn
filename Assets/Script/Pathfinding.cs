@@ -29,7 +29,7 @@ public class PathNode
 [RequireComponent(typeof(Gridmap))]
 public class Pathfinding : MonoBehaviour
 {
-    Grid gridMap;
+    Gridmap gridMap;
 
     PathNode[,] pathNodes;
     private void Start()
@@ -39,7 +39,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Init()
     {
-        if (gridMap == null) { gridMap = GetComponent<Grid>(); }
+        if (gridMap == null) { gridMap = GetComponent<Gridmap>(); }
 
         pathNodes = new PathNode[gridMap.length, gridMap.width];
 
