@@ -10,7 +10,9 @@ public class PathNode
     public int pos_x;
     public int pos_y;
 
+    // g value is walking cost to move to the next square: 10 for orthogonal and 14 for diagonal by default
     public float gValue;
+    // h value is the heuristic (total) cost to reach final goal
     public float hValue;
     public PathNode parentNode;
 
