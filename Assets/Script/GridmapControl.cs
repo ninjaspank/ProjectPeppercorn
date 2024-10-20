@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is used to visually debug a path on the grid
+/// </summary>
 public class GridmapControl : MonoBehaviour
 {
     [SerializeField] Gridmap targetGrid;

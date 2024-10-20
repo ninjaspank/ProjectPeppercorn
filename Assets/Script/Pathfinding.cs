@@ -5,6 +5,10 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
+/// <summary>
+/// Individual node on the movement grid
+/// During Pathfinding we assign these values until a final path is discovered
+/// </summary>
 public class PathNode
 {
     public int pos_x;
@@ -14,6 +18,7 @@ public class PathNode
     public float gValue;
     // h value is the heuristic (total) cost to reach final goal
     public float hValue;
+    // This is a temporary value of a parent node used during Pathfinding
     public PathNode parentNode;
 
     public float fValue
@@ -28,9 +33,14 @@ public class PathNode
     }
 }
 
+
+/// <summary>
+/// This is the main script for finding and returning a path list
+/// </summary>
 [RequireComponent(typeof(Gridmap))]
 public class Pathfinding : MonoBehaviour
 {
+    // This is a reference to the system that knows where objects live on the grid
     Gridmap gridMap;
 
     PathNode[,] pathNodes;
@@ -39,6 +49,9 @@ public class Pathfinding : MonoBehaviour
         Init();
     }
 
+    /// <summary>
+    /// Creats a node list that matches 1:1 with the grid map
+    /// </summary>
     private void Init()
     {
         if (gridMap == null) { gridMap = GetComponent<Gridmap>(); }
@@ -53,21 +66,28 @@ public class Pathfinding : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Given a start and end location, calculate the most direct path
+    /// </summary>
     public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
     {
+        // Convert the grid pos to path nodes
         PathNode startNode = pathNodes[startX, startY];
         PathNode endNode = pathNodes[endX, endY];
-        
+        // These are the path nodes to check next
         List<PathNode> openList = new List<PathNode>();
+        // These are the nodes we've already checked
         List<PathNode> closedList = new List<PathNode>();
-
+        
+        // Start by adding nodes to the open list
         openList.Add(startNode);
-
+        
+        // While we have nodes to evaluate, keep this logic running
         while (openList.Count > 0)
         {
+            //Get the first node of the open list
             PathNode currentNode = openList[0];
-            
+            // Loop through the open list to find the next best node to walk to
             for (int i = 0; i < openList.Count; i++)
             {
                 if (currentNode.fValue > openList[i].fValue)
@@ -81,20 +101,24 @@ public class Pathfinding : MonoBehaviour
                     currentNode = openList[i];
                 }
             }
-
+            
+            // Once we have the next best node, remove it from the closed list and add it to the open list
             openList.Remove(currentNode);
             closedList.Add(currentNode);
-
+            // If the node we're looking at is the end, then we have a path!
             if (currentNode == endNode)
             {
                 return RetracePath(startNode, endNode);
             }
-
+            
+            // Based on the current node, evaluate nodes to step into
             List<PathNode> neighborNodes = new List<PathNode>();
+            // Check the 3x3 grid around the node for neighbours
             for (int x = -1; x < 2; x++)
             {
                 for (int y = -1; y < 2; y++)
                 {
+                    // Ignore the current node, which is in the middle of the 3x3
                     if (x == 0 && y == 0) { continue; }
                     if (gridMap.CheckBoundry(currentNode.pos_x + x, currentNode.pos_y + y) == false) { continue; }
                     
@@ -102,23 +126,29 @@ public class Pathfinding : MonoBehaviour
                 }
             }
             
+            // Evaluate neighbour nodes to step into
             for (int i = 0; i < neighborNodes.Count; i++)
             {
+                // Early out for already evaluated nodes
                 if(closedList.Contains(neighborNodes[i])) { continue; }
+                // If it's not walkable, ignore it
                 if(gridMap.CheckWalkable(neighborNodes[i].pos_x, neighborNodes[i].pos_y) == false) { continue; }
-
+                // Cost if we wanted to step into this neighbourNode
                 float movementCost = currentNode.gValue + CalculateDistance(currentNode, neighborNodes[i]);
-
+                // If it isn't in the open list OR it's cheaper to walk to, add it to the open list
                 if (openList.Contains(neighborNodes[i]) == false
                     || movementCost < neighborNodes[i].gValue
                    )
                 {
+                    // Assigning a value to the neighbourNode as if we were walking to it from this current node
                     neighborNodes[i].gValue = movementCost;
-                    neighborNodes[i].gValue = CalculateDistance(neighborNodes[i], endNode);
+                    neighborNodes[i].hValue = CalculateDistance(neighborNodes[i], endNode);
+                    // Based on what we've calculated, this is the most efficient node and setting it the parent
                     neighborNodes[i].parentNode = currentNode;
 
                     if (openList.Contains(neighborNodes[i]) == false)
                     {
+                        // Add to the open list if not already in
                         openList.Add(neighborNodes[i]);
                     }
                 }
@@ -128,7 +158,8 @@ public class Pathfinding : MonoBehaviour
         
         return null;
     }
-
+    
+    // This technically would be 'CalculateStepCost'
     private int CalculateDistance(PathNode currentNode, PathNode target)
     {
         int distX = Mathf.Abs(currentNode.pos_x - target.pos_x);
@@ -137,7 +168,9 @@ public class Pathfinding : MonoBehaviour
         if(distX > distY) { return 14 * distY + 10 * (distX - distY); }
         return 14 * distX + 10 * (distY - distX);
     }
-
+    /// <summary>
+    /// Walking back along the path of parent nodes to return to 'start'
+    /// </summary>
     private List<PathNode> RetracePath(PathNode startNode, PathNode endNode)
     {
         List<PathNode> path = new List<PathNode>();

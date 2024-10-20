@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script tells the Unity animator what animations to play
+/// </summary>
 public class CharacterAnimator : MonoBehaviour
 {
+    /// <summary>
+    /// This is the Unity component that actually plays the animations
+    /// </summary>
     Animator animator;
 
     [SerializeField] bool move;

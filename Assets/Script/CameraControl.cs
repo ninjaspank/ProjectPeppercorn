@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>
+/// Getting the player input and restricting the camera movement to within the set boundaries
+/// </summary>
 public class CameraControl : MonoBehaviour
 {
     [SerializeField] float keyboardInputSensitivity = 1f;

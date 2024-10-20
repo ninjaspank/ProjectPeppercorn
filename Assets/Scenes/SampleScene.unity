@@ -434,7 +434,7 @@ MonoBehaviour:
   targetGrid: {fileID: 2049369444}
   terrainLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   targetCharacter: {fileID: 703473638}
 --- !u!1 &410087039
 GameObject:
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74670e6f2db96ac46b9f9078d5ebf254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 5
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,17 +993,17 @@ PrefabInstance:
     - target: {fileID: 8767290087235692236, guid: 49774fc28bcaa6647b95b6dded3e1ae5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.89
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8767290087235692236, guid: 49774fc28bcaa6647b95b6dded3e1ae5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.091
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8767290087235692236, guid: 49774fc28bcaa6647b95b6dded3e1ae5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -31.737637
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8767290087235692236, guid: 49774fc28bcaa6647b95b6dded3e1ae5,
         type: 3}
@@ -1545,17 +1545,17 @@ PrefabInstance:
     - target: {fileID: 3037234403354257730, guid: 1e228e5e79d124f45a73e19e81abc70a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3037234403354257730, guid: 1e228e5e79d124f45a73e19e81abc70a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.14
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3037234403354257730, guid: 1e228e5e79d124f45a73e19e81abc70a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.93
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3037234403354257730, guid: 1e228e5e79d124f45a73e19e81abc70a,
         type: 3}
