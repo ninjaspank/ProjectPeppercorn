@@ -11,50 +11,48 @@ public class GridmapControl : MonoBehaviour
     [SerializeField] Gridmap targetGrid;
     [SerializeField] private LayerMask terrainLayerMask;
 
-    Pathfinding pathfinding;
-    Vector2Int currentPosition = new Vector2Int();
-    List<PathNode> path;
-    private void Start()
-    {
-        pathfinding = targetGrid.GetComponent<Pathfinding>();
-    }
+    private Vector2Int currentGridPosition = new Vector2Int(-1, -1);
+    
+    [SerializeField] private GridObject hoveringOver;
+    [SerializeField] private SelectableGridObject selectedObject;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        HoverOverObjectCheck();
+
+        SelectedObject();
+
+        DeselectObject();
+    }
+
+    private void DeselectObject()
+    {
+        if (Input.GetMouseButtonDown(1))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, float.MaxValue, terrainLayerMask))
-            {
-                Vector2Int gridPosition = targetGrid.GetGridPosition(hit.point);
-
-                path = pathfinding.FindPath(currentPosition.x, currentPosition.y, gridPosition.x, gridPosition.y);
-
-                currentPosition = gridPosition;
-                /*
-                GridObject gridObject = targetGrid.GetPlacedObject(gridPosition);
-                if (gridObject == null)
-                {
-                    Debug.Log("x=" + gridPosition.x + "y=" + gridPosition.y + " is empty");
-                }
-                else
-                {
-                    Debug.Log("x=" + gridPosition.x + "y=" + gridPosition.y + gridObject.GetComponent<Character>().Name);
-                } */
-            }
+            selectedObject = null;
         }
     }
 
-    private void OnDrawGizmos()
+    private void SelectedObject()
     {
-        if (path == null) { return; }
-        if (path.Count == 0) { return; }
+        if (Input.GetMouseButtonDown(0))
+        { 
+            if (hoveringOver == null) { return; }
+            selectedObject = hoveringOver.GetComponent<SelectableGridObject>();
+        }
+    }
 
-        for (int i = 0; i < path.Count - 1; i++)
+    private void HoverOverObjectCheck()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, float.MaxValue, terrainLayerMask))
         {
-            Gizmos.DrawLine(targetGrid.GetWorldPosition(path[i].pos_x, path[i].pos_y, true), 
-                targetGrid.GetWorldPosition(path[i + 1].pos_x, path[i + 1].pos_y, true));
+            Vector2Int gridPosition = targetGrid.GetGridPosition(hit.point);
+            if (gridPosition == currentGridPosition) { return; }
+            currentGridPosition = gridPosition;
+            GridObject gridObject = targetGrid.GetPlacedObject(gridPosition);
+            hoveringOver = gridObject;
         }
     }
 }
