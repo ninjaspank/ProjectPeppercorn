@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3037234403354257730}
   - component: {fileID: 4935180258550428459}
   - component: {fileID: 4373225841518621654}
+  - component: {fileID: -4180410610850777557}
   - component: {fileID: -5293651877283002947}
   m_Layer: 0
   m_Name: Character
@@ -47,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Brian
+  movementPoints: 50
+  hp: 100
+  attackRange: 1
+  damage: 20
 --- !u!114 &4373225841518621654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +66,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetGrid: {fileID: 0}
   positionOnGrid: {x: 0, y: 0}
+--- !u!114 &-4180410610850777557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057999977055548540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1117ac7d073de4e8cc5a3dd7c5c294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-5293651877283002947
 MonoBehaviour:
   m_ObjectHideFlags: 0

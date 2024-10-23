@@ -6,26 +6,24 @@ using UnityEngine;
 public class GridHighlight : MonoBehaviour
 {
     Gridmap gridmap;
-    [SerializeField] GameObject movePoint;
-    List<GameObject> movePointGOs;
-    [SerializeField] GameObject movePointsContainer;
-
-    [SerializeField] List<Vector2Int> testTargetPosition;
+    [SerializeField] GameObject highlightPoint;
+    List<GameObject> highlightPointGOs;
+    [SerializeField] GameObject container;
 
     // Start is called before the first frame update
     void Awake()
     {
-        gridmap = GetComponent<Gridmap>();
-        movePointGOs = new List<GameObject>();
+        gridmap = GetComponentInParent<Gridmap>();
+        highlightPointGOs = new List<GameObject>();
         
         ///Highlight(testTargetPosition);
     }
 
-    private GameObject CreateMovePointHighlightObject()
+    private GameObject CreatePointHighlightObject()
     {
-        GameObject go = Instantiate(movePoint);
-        movePointGOs.Add(go);
-        go.transform.SetParent(movePointsContainer.transform);
+        GameObject go = Instantiate(highlightPoint);
+        highlightPointGOs.Add(go);
+        go.transform.SetParent(container.transform);
         return go;
     }
 
@@ -33,7 +31,7 @@ public class GridHighlight : MonoBehaviour
     {
         for (int i = 0; i < positions.Count; i++)
         {
-            Highlight(positions[i].x, positions[i].y, GetMovePointGO(i));
+            Highlight(positions[i].x, positions[i].y, GetHighlightPointGO(i));
         }
     }
     
@@ -41,18 +39,18 @@ public class GridHighlight : MonoBehaviour
     {
         for (int i = 0; i < positions.Count; i++)
         {
-            Highlight(positions[i].pos_x, positions[i].pos_y, GetMovePointGO(i));
+            Highlight(positions[i].pos_x, positions[i].pos_y, GetHighlightPointGO(i));
         }
     }
 
-    private GameObject GetMovePointGO(int i)
+    private GameObject GetHighlightPointGO(int i)
     {
-        if (movePointGOs.Count < i)
+        if (highlightPointGOs.Count < i)
         {
-            return movePointGOs[i];
+            return highlightPointGOs[i];
         }
 
-        GameObject newHighlightObject = CreateMovePointHighlightObject();
+        GameObject newHighlightObject = CreatePointHighlightObject();
         return newHighlightObject;
     }
 
