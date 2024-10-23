@@ -13,12 +13,12 @@ public class GridHighlight : MonoBehaviour
     [SerializeField] List<Vector2Int> testTargetPosition;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gridmap = GetComponent<Gridmap>();
         movePointGOs = new List<GameObject>();
         
-        Highlight(testTargetPosition);
+        ///Highlight(testTargetPosition);
     }
 
     private GameObject CreateMovePointHighlightObject()
@@ -34,6 +34,14 @@ public class GridHighlight : MonoBehaviour
         for (int i = 0; i < positions.Count; i++)
         {
             Highlight(positions[i].x, positions[i].y, GetMovePointGO(i));
+        }
+    }
+    
+    public void Highlight(List<PathNode> positions)
+    {
+        for (int i = 0; i < positions.Count; i++)
+        {
+            Highlight(positions[i].pos_x, positions[i].pos_y, GetMovePointGO(i));
         }
     }
 

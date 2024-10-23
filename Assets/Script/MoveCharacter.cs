@@ -14,11 +14,27 @@ public class MoveCharacter : MonoBehaviour
 
     Pathfinding pathfinding;
     List<PathNode> path;
+
+    [SerializeField] private GridHighlight gridHighlight;
+    
     private void Start()
     {
         pathfinding = targetGrid.GetComponent<Pathfinding>();
+        CheckWalkableTerrain();
     }
-    
+
+    private void CheckWalkableTerrain()
+    {
+        List<PathNode> walkableNodes = new List<PathNode>();
+        pathfinding.CalculateWalkableNodes(
+            targetCharacter.positionOnGrid.x,
+            targetCharacter.positionOnGrid.y,
+            targetCharacter.GetComponent<Character>().movementPoints,
+            ref walkableNodes
+            );
+        gridHighlight.Highlight(walkableNodes);
+    }
+
     void Update()
     {
         // Get player left click input
@@ -32,9 +48,13 @@ public class MoveCharacter : MonoBehaviour
             {
                 // Based ont he world position that we hit, get the grid position
                 Vector2Int gridPosition = targetGrid.GetGridPosition(hit.point);
-                // Get a path between the characters current position and the clicked location
-                path = pathfinding.FindPath(targetCharacter.positionOnGrid.x, targetCharacter.positionOnGrid.y, gridPosition.x, gridPosition.y);
                 
+                // Get a path between the characters current position and the clicked location
+                //path = pathfinding.FindPath(targetCharacter.positionOnGrid.x, targetCharacter.positionOnGrid.y, gridPosition.x, gridPosition.y);
+
+                path = pathfinding.TraceBackPath(gridPosition.x, gridPosition.y);
+                
+                path.Reverse();
                 
                 // Early out if the path is invalid
                 if (path == null)
