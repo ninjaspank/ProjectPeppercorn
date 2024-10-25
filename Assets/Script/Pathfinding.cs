@@ -31,6 +31,13 @@ public class PathNode
         pos_x = xPos;
         pos_y = yPos;
     }
+
+    public void Clear()
+    {
+        gValue = 0f;
+        hValue = 0f;
+        parentNode = null;
+    }
 }
 
 
@@ -48,6 +55,17 @@ public class Pathfinding : MonoBehaviour
     {
         Init();
     }
+    
+    internal void Clear()
+    {
+        for (int x = 0; x < gridMap.width; x++)
+        {
+            for (int y = 0; y < gridMap.length; y++)
+            {
+                pathNodes[x, y].Clear();
+            }
+        }
+    }
 
     /// <summary>
     /// Creats a node list that matches 1:1 with the grid map
@@ -56,11 +74,11 @@ public class Pathfinding : MonoBehaviour
     {
         if (gridMap == null) { gridMap = GetComponent<Gridmap>(); }
 
-        pathNodes = new PathNode[gridMap.length, gridMap.width];
+        pathNodes = new PathNode[gridMap.width, gridMap.length];
 
-        for (int x = 0; x < gridMap.length; x++)
+        for (int x = 0; x < gridMap.width; x++)
         {
-            for (int y = 0; y < gridMap.width; y++)
+            for (int y = 0; y < gridMap.length; y++)
             {
                 pathNodes[x, y] = new PathNode(x, y);
             }

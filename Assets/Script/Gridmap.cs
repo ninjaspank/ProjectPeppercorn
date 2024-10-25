@@ -18,7 +18,20 @@ public class Gridmap : MonoBehaviour
     {
         GenerateGrid();
     }
-
+    
+    internal void RemoveObject(Vector2Int positionOnGrid, GridObject gridObject)
+    {
+        if (CheckBoundry(positionOnGrid) == true)
+        {
+            if(gridmap[positionOnGrid.x, positionOnGrid.y].gridObject == gridObject) { return; }
+            gridmap[positionOnGrid.x, positionOnGrid.y].gridObject = null;
+        }
+        else
+        {
+            Debug.Log("You are trying to place the object outside the boundaries!");
+        }
+    }
+    
     public void PlaceObject(Vector2Int positionOnGrid, GridObject gridObject)
     {
         if (CheckBoundry(positionOnGrid) == true)
