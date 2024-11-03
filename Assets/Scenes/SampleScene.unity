@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
-  - component: {fileID: 330585551}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -421,24 +420,6 @@ MonoBehaviour:
   continious: 0
   bottomLeftBorder: {fileID: 476903232}
   topRightBorder: {fileID: 1547010469}
---- !u!114 &330585551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 746ce523bd25f3c41b239b4c8727d532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedCharacter: {fileID: 703473638}
-  targetGrid: {fileID: 2049369444}
-  highlight: {fileID: 1958184247}
-  terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,18 +774,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3858355789214221642}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &703473638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4373225841518621654, guid: 1e228e5e79d124f45a73e19e81abc70a,
-    type: 3}
-  m_PrefabInstance: {fileID: 3858355789214221642}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703473637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d112b740b7060354cbe504cf90ba9875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &703473640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3037234403354257730, guid: 1e228e5e79d124f45a73e19e81abc70a,
@@ -1574,6 +1543,7 @@ GameObject:
   - component: {fileID: 1815148114}
   - component: {fileID: 1815148113}
   - component: {fileID: 1815148112}
+  - component: {fileID: 1815148115}
   m_Layer: 0
   m_Name: ---GameManager---
   m_TagString: Untagged
@@ -1670,6 +1640,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6d904b8f7b5fc4ca1ef0d4d5c7a0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1815148115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815148108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746ce523bd25f3c41b239b4c8727d532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetGrid: {fileID: 2049369444}
+  highlight: {fileID: 1958184247}
 --- !u!1 &1958184245
 GameObject:
   m_ObjectHideFlags: 0

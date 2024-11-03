@@ -4,70 +4,61 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
-    [SerializeField] private GridObject selectedCharacter;
     [SerializeField] private Gridmap targetGrid;
     [SerializeField] private GridHighlight highlight;
-    
-    [SerializeField] LayerMask terrainLayerMask;
 
     private List<Vector2Int> attackPosition;
-    
-    private void Start()
-    {
-        CalculateAttackArea();
-    }
-    
-    public void CalculateAttackArea(bool selfTargetable = false)
-    {
-        Character character = selectedCharacter.GetComponent<Character>();
-        int attackRange = character.attackRange;
 
-        attackPosition = new List<Vector2Int>();
-
+    public void CalculateAttackArea(Vector2Int characterPositionOnGrid, int attackRange, bool selfTargetable = false)
+    {
+        if (attackPosition == null)
+        {
+            attackPosition = new List<Vector2Int>();
+        }
+        else {
+            attackPosition.Clear();
+        }
+        
+        // We cycle through all the nodes we can reach with our AttackRange
         for (int x = -attackRange; x <= attackRange; x++)
         {
             for (int y = -attackRange; y <= attackRange; y++)
             {
+                // Calculate the actual distance to the node
                 if(Mathf.Abs(x) + Mathf.Abs(y) > attackRange) { continue; }
 
+                // Skip the center of the attack range if not self-targetable
                 if (selfTargetable == false)
                 {
                     if(x == 0 && y == 0) { continue; }
                 }
+                
+                // If the position of the tile we are checking is inside the boundaries then add it io the list
                 if (targetGrid.CheckBoundry(
-                        selectedCharacter.positionOnGrid.x + x, 
-                        selectedCharacter.positionOnGrid.y + y) == true)
+                        characterPositionOnGrid.x + x, 
+                        characterPositionOnGrid.y + y) == true)
                 {
                     attackPosition.Add(
                         new Vector2Int(
-                            selectedCharacter.positionOnGrid.x + x, 
-                            selectedCharacter.positionOnGrid.y + y
-                            )
-                        );
+                            characterPositionOnGrid.x + x, 
+                            characterPositionOnGrid.y + y
+                        )
+                    );
                 }
             }
         }
-        
+        // Highlight the positions in the list
         highlight.Highlight(attackPosition);
     }
 
-    void Update()
+    public bool Check(Vector2Int positionOnGrid)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, float.MaxValue, terrainLayerMask))
-            {
-                Vector2Int gridPosition = targetGrid.GetGridPosition(hit.point);
+        return attackPosition.Contains(positionOnGrid);
+    }
 
-                if (attackPosition.Contains(gridPosition))
-                {
-                    GridObject gridObject = targetGrid.GetPlacedObject(gridPosition);
-                    if (gridObject == null) { return; }
-                    selectedCharacter.GetComponent<Attack>().AttackPosition(gridObject);
-                }
-            }
-        }
+    public GridObject GetAttackTarget(Vector2Int positionOnGrid)
+    {
+        GridObject target = targetGrid.GetPlacedObject(positionOnGrid);
+        return target;
     }
 }
