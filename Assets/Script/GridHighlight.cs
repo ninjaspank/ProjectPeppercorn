@@ -45,7 +45,7 @@ public class GridHighlight : MonoBehaviour
 
     private GameObject GetHighlightPointGO(int i)
     {
-        if (highlightPointsGO.Count < i)
+        if (highlightPointsGO.Count > i)
         {
             return highlightPointsGO[i];
         }

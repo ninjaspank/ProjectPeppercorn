@@ -23,7 +23,6 @@ public class Gridmap : MonoBehaviour
     {
         if (CheckBoundry(positionOnGrid) == true)
         {
-            if(gridmap[positionOnGrid.x, positionOnGrid.y].gridObject == gridObject) { return; }
             gridmap[positionOnGrid.x, positionOnGrid.y].gridObject = null;
         }
         else
