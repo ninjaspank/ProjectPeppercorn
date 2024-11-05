@@ -29,15 +29,21 @@ public class CommandMenu : MonoBehaviour
 
     public void MoveCommandSelected()
     {
-        commandInput.SetCommandType(CommandType.MoveTo);
-        commandInput.InitCommand();
-        ClosePanel();
+        if (selectCharacter.selected.GetComponent<CharacterTurn>().canWalk)
+        {
+            commandInput.SetCommandType(CommandType.MoveTo);
+            commandInput.InitCommand();
+            ClosePanel();
+        }
     }
 
     public void AttackCommandSelected()
     {
-        commandInput.SetCommandType(CommandType.Attack);
-        commandInput.InitCommand();
-        ClosePanel();
+        if (selectCharacter.selected.GetComponent<CharacterTurn>().canAct)
+        {
+            commandInput.SetCommandType(CommandType.Attack);
+            commandInput.InitCommand();
+            ClosePanel();
+        }
     }
 }

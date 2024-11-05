@@ -38,7 +38,6 @@ public class MoveCharacter : MonoBehaviour
     {
         List<PathNode> path = pathfinding.TraceBackPath(from.x, from.y);
         
-        path.Reverse();
         // Early out if the path is invalid
         if (path == null)
         {
@@ -48,6 +47,8 @@ public class MoveCharacter : MonoBehaviour
         {
             Debug.LogWarning("MoveCharacter - Path List is empty");
             return null; }
+        
+        path.Reverse();
 
         return path;
     }

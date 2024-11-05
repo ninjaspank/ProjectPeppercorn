@@ -74,6 +74,8 @@ public class CommandManager : MonoBehaviour
     {
         Character receiver = currentCommand.character;
         receiver.GetComponent<Attack>().AttackPosition(currentCommand.target);
+        receiver.GetComponent<CharacterTurn>().canAct = false;
+        
         currentCommand = null;
         clearUtility.ClearGridHighlightAttack();
     }
@@ -82,6 +84,8 @@ public class CommandManager : MonoBehaviour
     {
         Character receiver = currentCommand.character;
         receiver.GetComponent<Movement>().Move(currentCommand.path);
+        receiver.GetComponent<CharacterTurn>().canWalk = false;
+        
         currentCommand = null;
         clearUtility.ClearPathfinding();
         clearUtility.ClearGridHighlightMove();

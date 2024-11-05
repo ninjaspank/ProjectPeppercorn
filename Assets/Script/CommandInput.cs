@@ -10,6 +10,7 @@ public class CommandInput : MonoBehaviour
     private MoveCharacter moveCharacter;
     private CharacterAttack characterAttack;
     private SelectCharacter selectCharacter;
+    private ClearUtility clearUtility;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class CommandInput : MonoBehaviour
         moveCharacter = GetComponent<MoveCharacter>();
         characterAttack = GetComponent<CharacterAttack>();
         selectCharacter = GetComponent<SelectCharacter>();
+        clearUtility = GetComponent<ClearUtility>();
     }
     
     [SerializeField] private CommandType currentCommand;
@@ -73,9 +75,15 @@ public class CommandInput : MonoBehaviour
                 GridObject gridObject = characterAttack.GetAttackTarget(mouseInput.positionOnGrid);
                 if (gridObject == null) { return; }
                 commandManager.AddAttackCommand(selectCharacter.selected, mouseInput.positionOnGrid, gridObject);
-                selectCharacter.Deselect();
-                selectCharacter.enabled = true;
+                StopCommandInput();
+
             }
+        }
+        
+        if (Input.GetMouseButtonDown(1))
+        {
+            StopCommandInput();
+            clearUtility.ClearGridHighlightAttack();
         }
     }
 
@@ -87,16 +95,24 @@ public class CommandInput : MonoBehaviour
             if (path == null) { return; }
             if (path.Count == 0) { return; }
             commandManager.AddMoveCommand(selectCharacter.selected, mouseInput.positionOnGrid, path);
-            selectCharacter.Deselect();
-            selectCharacter.enabled = true;
+            StopCommandInput();
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            //selectCharacter.selected.GetComponent<Movement>().SkipAnimation();
+            StopCommandInput();
+            clearUtility.ClearGridHighlightMove();
+            clearUtility.ClearPathfinding();
         }
     }
-    
+
+    private void StopCommandInput()
+    {
+        selectCharacter.Deselect();
+        selectCharacter.enabled = true;
+        isInputCommand = false;
+    }
+
     public void HighlightWalkableTerrain()
     {
         moveCharacter.CheckWalkableTerrain(selectCharacter.selected);
