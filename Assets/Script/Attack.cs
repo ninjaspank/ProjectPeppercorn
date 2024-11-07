@@ -6,17 +6,20 @@ public class Attack : MonoBehaviour
 {
     private GridObject gridObject;
     private CharacterAnimator characterAnimator;
+    private Character character;
 
     private void Awake()
     {
+        character = GetComponent<Character>();
         gridObject = GetComponent<GridObject>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
     }
 
-    public void AttackPosition(GridObject targetGridObject)
+    public void AttackGridObject(GridObject targetGridObject)
     {
         RotateCharacter(targetGridObject.transform.position);
         characterAnimator.Attack();
+        targetGridObject.GetComponent<Character>().TakeDamage(character.damage);
     }
 
     private void RotateCharacter(Vector3 towards)

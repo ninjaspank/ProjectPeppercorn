@@ -73,7 +73,7 @@ public class CommandManager : MonoBehaviour
     private void AttackCommandExecute()
     {
         Character receiver = currentCommand.character;
-        receiver.GetComponent<Attack>().AttackPosition(currentCommand.target);
+        receiver.GetComponent<Attack>().AttackGridObject(currentCommand.target);
         receiver.GetComponent<CharacterTurn>().canAct = false;
         
         currentCommand = null;

@@ -14,6 +14,7 @@ public class CharacterAnimator : MonoBehaviour
 
     [SerializeField] bool move;
     [SerializeField] bool attack;
+    [SerializeField] private bool defeated;
     
     
     private void Awake()
@@ -31,6 +32,11 @@ public class CharacterAnimator : MonoBehaviour
         move = false;
     }
 
+    public void Defeated()
+    {
+        defeated = true;
+    }
+
     public void Attack()
     {
         attack = true;
@@ -40,10 +46,16 @@ public class CharacterAnimator : MonoBehaviour
     {
         animator.SetBool("Move", move);
         animator.SetBool("Attack", attack);
+        animator.SetBool("Defeated", defeated);
         
         if (attack == true)
         {
             attack = false;
         }
+    }
+
+    public void Flinch()
+    {
+        animator.SetTrigger(("Pain"));
     }
 }
