@@ -39,11 +39,19 @@ public class Character : MonoBehaviour
     public Int2Val hp = new Int2Val(100,100);
     public int attackRange = 1;
     public int damage = 20;
+    public float accuracy = 0.75f;
+    public float dodge = 0.1f;
+    public float critChance = 0.1f;
+    public float critDamageMulitplicator = 1.5f;
+    public int armor = 10;
+    public DamageType damageType;
+    public int resistance = 10;
     public bool defeated;
 
     public void TakeDamage(int damage)
     {
         hp.Subtract(damage);
+        Debug.Log("CHARACTER: Applying " + damage.ToString());
         CheckDefeat();
     }
 
