@@ -91,6 +91,7 @@ public class CommandInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (moveCharacter.CheckOccupied(mouseInput.positionOnGrid) == true) { return; }
             List<PathNode> path = moveCharacter.GetPath(mouseInput.positionOnGrid);
             if (path == null) { return; }
             if (path.Count == 0) { return; }

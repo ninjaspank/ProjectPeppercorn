@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameMenu : MonoBehaviour
 {
-    [SerializeField] GameObject panel;
+    public GameObject panel;
     private SelectCharacter selectCharacter;
 
     private void Awake()
@@ -16,7 +16,7 @@ public class GameMenu : MonoBehaviour
         if (selectCharacter.enabled == false) { return; }
         if (Input.GetMouseButtonDown(1))
         {
-            panel.SetActive(true);
+            panel.SetActive(!panel.activeInHierarchy);
         }
     }
 }

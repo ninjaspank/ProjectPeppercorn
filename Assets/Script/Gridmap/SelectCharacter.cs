@@ -6,11 +6,13 @@ public class SelectCharacter : MonoBehaviour
 {
     private MouseInput mouseInput;
     private CommandMenu commandMenu;
+    private GameMenu gameMenu;
 
     private void Awake()
     {
         mouseInput = GetComponent<MouseInput>();
         commandMenu = GetComponent<CommandMenu>();
+        gameMenu = GetComponent<GameMenu>();
     }
 
     public Character selected;
@@ -66,6 +68,8 @@ public class SelectCharacter : MonoBehaviour
 
     private void SelectInput()
     {
+        if(selected != null) { return; }
+        if (gameMenu.panel.activeInHierarchy == true) { return; }
         if (Input.GetMouseButtonDown(0))
         {
             if (hoverOverCharacer != null && selected == null)

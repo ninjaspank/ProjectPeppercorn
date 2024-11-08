@@ -52,4 +52,9 @@ public class MoveCharacter : MonoBehaviour
 
         return path;
     }
+
+    public bool CheckOccupied(Vector2Int positionOnGrid)
+    {
+        return targetGrid.CheckOccupied(positionOnGrid);
+    }
 }

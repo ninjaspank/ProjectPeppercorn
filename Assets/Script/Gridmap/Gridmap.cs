@@ -204,4 +204,9 @@ public class Gridmap : MonoBehaviour
 
         return worldPositions;
     }
+
+    internal bool CheckOccupied(Vector2Int positionOnGrid)
+    {
+        return GetPlacedObject(positionOnGrid) != null;
+    }
 }
