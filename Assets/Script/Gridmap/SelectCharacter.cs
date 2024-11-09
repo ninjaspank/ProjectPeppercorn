@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class SelectCharacter : MonoBehaviour
     }
 
     public Character selected;
+    private bool isSelected;
     private GridObject hoverOverGridObject;
     public Character hoverOverCharacer;
     private Vector2Int positionOnGrid = new Vector2Int(-1,-1);
@@ -23,25 +25,37 @@ public class SelectCharacter : MonoBehaviour
 
     private void Update()
     {
-        HoverOverObject();
+        if (positionOnGrid != mouseInput.positionOnGrid)
+        {
+            HoverOverObject();
+        }
+        
         SelectInput();
         DeselectInput();
     }
 
+    private void LateUpdate()
+    {
+        if (selected != null)
+        {
+            if (isSelected == false)
+            {
+                selected = null;
+            }
+        }
+    }
+
     private void HoverOverObject()
     {
-        if (positionOnGrid != mouseInput.positionOnGrid)
+        positionOnGrid = mouseInput.positionOnGrid;
+        hoverOverGridObject = targetGrid.GetPlacedObject(positionOnGrid);
+        if (hoverOverGridObject != null)
         {
-            positionOnGrid = mouseInput.positionOnGrid;
-            hoverOverGridObject = targetGrid.GetPlacedObject(positionOnGrid);
-            if (hoverOverGridObject != null)
-            {
-                hoverOverCharacer = hoverOverGridObject.GetComponent<Character>();
-            }
-            else
-            {
-                hoverOverCharacer = null;
-            }
+            hoverOverCharacer = hoverOverGridObject.GetComponent<Character>();
+        }
+        else
+        {
+            hoverOverCharacer = null;
         }
     }
 
@@ -68,6 +82,7 @@ public class SelectCharacter : MonoBehaviour
 
     private void SelectInput()
     {
+        HoverOverObject();
         if(selected != null) { return; }
         if (gameMenu.panel.activeInHierarchy == true) { return; }
         if (Input.GetMouseButtonDown(0))
@@ -75,6 +90,7 @@ public class SelectCharacter : MonoBehaviour
             if (hoverOverCharacer != null && selected == null)
             {
                 selected = hoverOverCharacer;
+                isSelected = true;
             }
             UpdatePanel();
         }
@@ -82,6 +98,6 @@ public class SelectCharacter : MonoBehaviour
 
     public void Deselect()
     {
-        selected = null;
+        isSelected = false;
     }
 }

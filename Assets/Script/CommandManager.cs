@@ -31,11 +31,13 @@ public class Command
 }
 public class CommandManager : MonoBehaviour
 {
+    private VictoryConditionManager victoryConditionManager;
     private ClearUtility clearUtility;
 
     private void Awake()
     {
         clearUtility = GetComponent<ClearUtility>();
+        victoryConditionManager = GetComponent<VictoryConditionManager>();
     }
     
     private Command currentCommand;
@@ -75,6 +77,7 @@ public class CommandManager : MonoBehaviour
         Character receiver = currentCommand.character;
         receiver.GetComponent<Attack>().AttackGridObject(currentCommand.target);
         receiver.GetComponent<CharacterTurn>().canAct = false;
+        victoryConditionManager.CheckPlayerVictory();
         
         currentCommand = null;
         clearUtility.ClearGridHighlightAttack();
