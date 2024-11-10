@@ -120,6 +120,12 @@ public class Pathfinding : MonoBehaviour
             {
                 if(closedList.Contains(neighborNodes[i])) { continue; }
                 if(gridMap.CheckWalkable(neighborNodes[i].pos_x, neighborNodes[i].pos_y) == false) { continue; }
+
+                if (gridMap.CheckElevation(currentNode.pos_x, currentNode.pos_y, neighborNodes[i].pos_x,
+                        neighborNodes[i].pos_y) == false)
+                {
+                    continue;
+                }
                 
                 float movementCost = currentNode.gValue + CalculateDistance(currentNode, neighborNodes[i]);
                 

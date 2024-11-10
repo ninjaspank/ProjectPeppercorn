@@ -209,4 +209,16 @@ public class Gridmap : MonoBehaviour
     {
         return GetPlacedObject(positionOnGrid) != null;
     }
+
+    public bool CheckElevation(int from_pos_x, int from_pos_y, int to_pos_x, int to_pos_y, float characterClimb = 1.5f)
+    {
+        float from_elevation = gridmap[from_pos_x, from_pos_y].elevation;
+        float to_elevation = gridmap[to_pos_x, to_pos_y].elevation;
+
+        float elevation_difference = to_elevation - from_elevation;
+
+        elevation_difference = Math.Abs(elevation_difference);
+        
+        return characterClimb > elevation_difference;
+    }
 }
