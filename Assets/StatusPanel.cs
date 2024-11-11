@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatusPanel : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class StatusPanel : MonoBehaviour
 
     [SerializeField] private GameObject statusPanel;
     [SerializeField] private TMPro.TextMeshProUGUI characterName;
+    [SerializeField] private Slider hpBar;
 
     private Character currentCharacterStatus;
     
@@ -24,6 +26,7 @@ public class StatusPanel : MonoBehaviour
     {
         if (isActive == true)
         {
+            UpdateStatus(currentCharacterStatus);
             if (selectCharacter.hoverOverCharacer == null)
             {
                 HideStatusPanel();
@@ -63,6 +66,8 @@ public class StatusPanel : MonoBehaviour
 
     private void UpdateStatus(Character hoverOverCharacter)
     {
+        hpBar.maxValue = hoverOverCharacter.hp.max;
+        hpBar.value = hoverOverCharacter.hp.current;
         characterName.text = hoverOverCharacter.Name;
     }
 }

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public enum DamageType
 {
     Physical,
-    Magical
+    Magic
 }
 
 public class Attack : MonoBehaviour
@@ -44,29 +44,15 @@ public class Attack : MonoBehaviour
             return;
         }
 
-        int damage = character.damage;
+        int damage = character.GetDamage();
 
         if (UnityEngine.Random.value <= character.critChance)
         {
             damage = (int)(damage * character.critDamageMulitplicator);
-            Debug.Log("ATTACK: Critical Strike! Damage: " + damage + " instead of " + character.damage);
+            Debug.Log("ATTACK: Critical Strike! Damage: " + damage + " instead of " + character.GetDamage());
         }
 
-        switch (character.damageType)
-        {
-            case DamageType.Physical:
-                //apply armor value
-                damage -= target.armor;
-                Debug.Log("ATTACK: Physical attack received");
-                break;
-            case DamageType.Magical:
-                //apply resistance value
-                damage -= target.resistance;
-                Debug.Log("ATTACK: Magical attack received");
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        damage -= target.GetDefenseValue(character.damageType);
 
         if (damage <= 0)
         {
@@ -76,11 +62,11 @@ public class Attack : MonoBehaviour
         DamageType damageType = character.damageType;
         if (damageType == DamageType.Physical)
         {
-            Debug.Log("ATTACK: Target takes: " + damage.ToString() + " damage, minus " + target.armor.ToString() + " armor");
+            Debug.Log("ATTACK: Target takes: " + damage.ToString() + " damage, minus " + target.GetDefenseValue(character.damageType).ToString() + " armor");
         }
         else
         {
-            Debug.Log("ATTACK: Target takes: " + damage.ToString() + " damage, minus " + target.resistance.ToString() + " resistance");
+            Debug.Log("ATTACK: Target takes: " + damage.ToString() + " damage, minus " + target.GetDefenseValue(character.damageType).ToString() + " resistance");
         }
         target.TakeDamage(damage);
         

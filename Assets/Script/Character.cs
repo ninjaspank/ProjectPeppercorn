@@ -32,21 +32,86 @@ public class Int2Val
     }
 }
 
+[Serializable]
+public class CharacterAttributes
+{
+    public int strength;
+    public int magic;
+    public int skill;
+    public int speed;
+    public int defense;
+    public int resistance;
+
+    public CharacterAttributes()
+    {
+        
+    }
+}
+
 public class Character : MonoBehaviour
 {
+    public CharacterAttributes attributes;
+    
     public string Name = "Nameless";
     public float movementPoints = 50f;
     public Int2Val hp = new Int2Val(100,100);
     public int attackRange = 1;
-    public int damage = 20;
     public float accuracy = 0.75f;
     public float dodge = 0.1f;
     public float critChance = 0.1f;
     public float critDamageMulitplicator = 1.5f;
-    public int armor = 10;
     public DamageType damageType;
-    public int resistance = 10;
     public bool defeated;
+
+    public int GetDefenseValue(DamageType dt)
+    {
+        int def = 0;
+
+        switch (dt)
+        {
+            case DamageType.Physical:
+                def += attributes.defense;
+                break;
+            case DamageType.Magic:
+                def += attributes.resistance;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(dt), dt, null);
+        }
+
+        return def;
+    }
+    public int GetDamage()
+    {
+        int damage = 0;
+
+        switch (damageType)
+        {
+            case DamageType.Physical:
+                damage += attributes.strength;
+                break;
+            case DamageType.Magic:
+                damage += attributes.magic;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+        return damage;
+    }
+    
+    private void Start()
+    {
+        if (attributes == null)
+        {
+            Init();
+        }
+    }
+
+    public void Init()
+    {
+        attributes = new CharacterAttributes();
+    }
 
     public void TakeDamage(int damage)
     {
