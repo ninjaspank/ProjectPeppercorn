@@ -49,11 +49,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cf89bdb712a4543b8ddd506e00624d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Brian
+  attributes:
+    strength: 0
+    magic: 0
+    skill: 0
+    speed: 0
+    defense: 0
+    resistance: 0
+  level:
+    level: 1
+    experience: 0
+  Name: Nameless
   movementPoints: 50
-  hp: 100
+  hp:
+    current: 100
+    max: 100
+    canGoNegative: 0
   attackRange: 1
-  damage: 20
+  accuracy: 0.75
+  dodge: 0.1
+  critChance: 0.1
+  critDamageMulitplicator: 1.5
+  damageType: 0
+  defeated: 0
 --- !u!114 &4373225841518621654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,3 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce9d6c0da6de5a42b215b8c4ff1588b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  canWalk: 0
+  canAct: 0
