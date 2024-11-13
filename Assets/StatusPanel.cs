@@ -7,67 +7,27 @@ using UnityEngine.UI;
 
 public class StatusPanel : MonoBehaviour
 {
-    private SelectCharacter selectCharacter;
-
-    private bool isActive;
-
-    [SerializeField] private GameObject statusPanel;
     [SerializeField] private TMPro.TextMeshProUGUI characterName;
     [SerializeField] private Slider hpBar;
 
-    private Character currentCharacterStatus;
-    
-    private void Awake()
-    {
-        selectCharacter = GetComponent<SelectCharacter>();
-    }
+    [SerializeField] private CharacterAttributeText strAttributeText;
+    [SerializeField] private CharacterAttributeText magAttributeText;
+    [SerializeField] private CharacterAttributeText sklAttributeText;
+    [SerializeField] private CharacterAttributeText spdAttributeText;
+    [SerializeField] private CharacterAttributeText defAttributeText;
+    [SerializeField] private CharacterAttributeText resAttributeText;
 
-    private void Update()
+    public void UpdateStatus(Character character)
     {
-        if (isActive == true)
-        {
-            UpdateStatus(currentCharacterStatus);
-            if (selectCharacter.hoverOverCharacer == null)
-            {
-                HideStatusPanel();
-                return;
-            }
-
-            if (selectCharacter.hoverOverCharacer != currentCharacterStatus)
-            {
-                currentCharacterStatus = selectCharacter.hoverOverCharacer;
-                UpdateStatus(currentCharacterStatus);
-                return;
-            }
-        }
-        else
-        {
-            if (selectCharacter.hoverOverCharacer != null)
-            {
-                currentCharacterStatus = selectCharacter.hoverOverCharacer;
-                ShowStatusPanel();
-                return;
-            }
-        }
-    }
-
-    private void HideStatusPanel()
-    {
-        statusPanel.SetActive(false);
-        isActive = false;
-    }
-
-    private void ShowStatusPanel()
-    {
-        statusPanel.SetActive(true);
-        isActive = true;
-        UpdateStatus(selectCharacter.hoverOverCharacer);
-    }
-
-    private void UpdateStatus(Character hoverOverCharacter)
-    {
-        hpBar.maxValue = hoverOverCharacter.hp.max;
-        hpBar.value = hoverOverCharacter.hp.current;
-        characterName.text = hoverOverCharacter.Name;
+        hpBar.maxValue = character.hp.max;
+        hpBar.value = character.hp.current;
+        characterName.text = character.Name;
+        
+        strAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Strength));
+        magAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Magic));
+        sklAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Skill));
+        spdAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Speed));
+        defAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Defense));
+        resAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Resistance));
     }
 }
