@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,19 @@ public class MouseInput : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
 
-    [SerializeField] private Gridmap targetGrid;
+    private Gridmap targetGrid;
     [SerializeField] private LayerMask terrainLayerMask;
 
     public Vector2Int positionOnGrid;
     public bool active;
 
     [SerializeField] private TMPro.TextMeshProUGUI positionOnScreen;
-    
+
+    private void Start()
+    {
+        targetGrid = FindObjectOfType<StageManager>().stageGrid;
+    }
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

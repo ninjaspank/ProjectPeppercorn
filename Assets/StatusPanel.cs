@@ -9,6 +9,8 @@ public class StatusPanel : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI characterName;
     [SerializeField] private Slider hpBar;
+    [SerializeField] private TMPro.TextMeshProUGUI levelText;
+    [SerializeField] private Slider expBar;
 
     [SerializeField] private CharacterAttributeText strAttributeText;
     [SerializeField] private CharacterAttributeText magAttributeText;
@@ -22,6 +24,10 @@ public class StatusPanel : MonoBehaviour
         hpBar.maxValue = character.hp.max;
         hpBar.value = character.hp.current;
         characterName.text = character.Name;
+
+        expBar.maxValue = character.level.RequiredExperienceToLevelUp;
+        expBar.value = character.level.experience;
+        levelText.text = "LVL:" + character.level.level.ToString();
         
         strAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Strength));
         magAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Magic));

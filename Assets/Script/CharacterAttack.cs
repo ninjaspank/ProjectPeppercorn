@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,13 @@ public class CharacterAttack : MonoBehaviour
     [SerializeField] private GridHighlight highlight;
 
     private List<Vector2Int> attackPosition;
+
+    private void Start()
+    {
+        StageManager stageManager = FindObjectOfType<StageManager>();
+        targetGrid = stageManager.stageGrid;
+        highlight = stageManager.attackHighlight;
+    }
 
     public void CalculateAttackArea(Vector2Int characterPositionOnGrid, int attackRange, bool selfTargetable = false)
     {

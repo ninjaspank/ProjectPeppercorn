@@ -7,14 +7,17 @@ using UnityEngine;
 /// </summary>
 public class MoveCharacter : MonoBehaviour
 {
-    [SerializeField] Gridmap targetGrid;
+    Gridmap targetGrid;
 
     Pathfinding pathfinding;
 
-    [SerializeField] private GridHighlight gridHighlight;
+    private GridHighlight gridHighlight;
     
     private void Start()
     {
+        StageManager stageManager = FindObjectOfType<StageManager>();
+        targetGrid = stageManager.stageGrid;
+        gridHighlight = stageManager.moveHighlight;
         pathfinding = targetGrid.GetComponent<Pathfinding>();
     }
 

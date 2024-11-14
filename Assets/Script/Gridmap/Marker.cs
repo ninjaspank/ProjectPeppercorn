@@ -11,7 +11,7 @@ public class Marker : MonoBehaviour
 
     private Vector2Int currentPosition;
     private bool active;
-    [SerializeField] private Gridmap targetGrid;
+    private Gridmap targetGrid;
     [SerializeField] private float elevation = 2f;
 
     private void Awake()
@@ -21,6 +21,11 @@ public class Marker : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        targetGrid = FindObjectOfType<StageManager>().stageGrid;
+    }
+    
     private void Update()
     {
         if (active != mouseInput.active)

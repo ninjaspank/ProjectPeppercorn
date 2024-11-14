@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ClearUtility : MonoBehaviour
 {
-    [SerializeField] private Pathfinding targetPF;
-    [SerializeField] private GridHighlight attackHighlight;
-    [SerializeField] private GridHighlight moveHighlight;
+    private Pathfinding targetPF;
+    private GridHighlight attackHighlight;
+    private GridHighlight moveHighlight;
+
+    private void Start()
+    {
+        StageManager stageManager = FindObjectOfType<StageManager>();
+        attackHighlight = stageManager.attackHighlight;
+        moveHighlight = stageManager.moveHighlight;
+        targetPF = stageManager.pathfinding;
+    }
 
     public void ClearPathfinding()
     {

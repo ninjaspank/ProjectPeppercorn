@@ -21,8 +21,13 @@ public class SelectCharacter : MonoBehaviour
     private GridObject hoverOverGridObject;
     public Character hoverOverCharacer;
     private Vector2Int positionOnGrid = new Vector2Int(-1,-1);
-    [SerializeField] private Gridmap targetGrid;
+    private Gridmap targetGrid;
 
+    public void Start()
+    {
+        targetGrid = FindObjectOfType<StageManager>().stageGrid;
+    }
+    
     private void Update()
     {
         if (positionOnGrid != mouseInput.positionOnGrid)
