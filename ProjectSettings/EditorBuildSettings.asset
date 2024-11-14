@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CombatEssentialScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/CombatStage1.unity
+    guid: 43bfb29617832ac49a951dd86bb6770a
+  - enabled: 1
+    path: Assets/Scenes/WorldMap.unity
+    guid: c7ecea74ad8aecf478a1168322cf56cf
+  - enabled: 1
+    path: Assets/Scenes/CombatStage2.unity
+    guid: ffee39c85e86dd14cbf4f53d85c1054f
   m_configObjects: {}

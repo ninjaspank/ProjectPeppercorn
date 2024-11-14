@@ -22,6 +22,8 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI turnCountText;
     [SerializeField] private TMPro.TextMeshProUGUI forceRoundText;
 
+    [SerializeField] MouseInput mouseInput;
+
     private void Start()
     {
         UpdateTextOnScreen();
@@ -49,9 +51,11 @@ public class RoundManager : MonoBehaviour
         switch (currentTurn)
         {
             case Allegiance.Player:
+                DisablePlayerInput();
                 currentTurn = Allegiance.Opponent;
                 break;
             case Allegiance.Opponent:
+                EnablePlayerInput();
                 NextRound();
                 currentTurn = Allegiance.Player;
                 break;
@@ -61,6 +65,16 @@ public class RoundManager : MonoBehaviour
         GrantTurnToForce();
         
         UpdateTextOnScreen();
+    }
+
+    private void EnablePlayerInput()
+    {
+        mouseInput.enabled = true;
+    }
+
+    private void DisablePlayerInput()
+    {
+        mouseInput.enabled = false;
     }
 
     private void GrantTurnToForce()
