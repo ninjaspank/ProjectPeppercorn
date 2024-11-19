@@ -93,22 +93,16 @@ public class CharacterAttributes
         {
             case CharacterAttributeEnum.Strength:
                 return strength;
-                break;
             case CharacterAttributeEnum.Magic:
                 return magic;
-                break;
             case CharacterAttributeEnum.Skill:
                 return skill;
-                break;
             case CharacterAttributeEnum.Speed:
                 return speed;
-                break;
             case CharacterAttributeEnum.Defense:
                 return defense;
-                break;
             case CharacterAttributeEnum.Resistance:
                 return resistance;
-                break;
             default:
                 Debug.LogWarning("Trying to return Attribute value which was not implemented into Get method yet");
                 return -1;
@@ -147,20 +141,69 @@ public class Level
     }
 }
 
-public class Character : MonoBehaviour
+public enum CharacterStats
 {
-    public CharacterAttributes attributes;
-    public CharacterAttributes levelUpRates;
-    public Level level;
-    
-    public string Name = "Nameless";
-    public float movementPoints = 50f;
-    public Int2Val hp = new Int2Val(100,100);
+    HP,
+    AttackRange,
+    Accuracy,
+    Dodge,
+    CritChance,
+    CritDamageMulitplicator,
+    MovementPoints
+}
+
+[Serializable]
+public class Stats
+{
+    public int hp = 100;
     public int attackRange = 1;
     public float accuracy = 0.75f;
     public float dodge = 0.1f;
     public float critChance = 0.1f;
     public float critDamageMulitplicator = 1.5f;
+    public float movementPoints = 50f;
+
+    public float GetFloatValue(CharacterStats characterStats)
+    {
+        switch (characterStats)
+        {
+            case CharacterStats.Accuracy:
+                return accuracy;
+            case CharacterStats.Dodge:
+                return dodge;
+            case CharacterStats.CritChance:
+                return critChance;
+            case CharacterStats.CritDamageMulitplicator:
+                return critDamageMulitplicator;
+            case CharacterStats.MovementPoints:
+                return movementPoints;
+            default:
+                Debug.LogWarning("CHARACTER: Requesting incorrect character stats type");
+                throw new ArgumentOutOfRangeException(nameof(characterStats), characterStats, null);
+        }
+    }
+
+    public int GetIntValue(CharacterStats characterStats)
+    {
+        switch (characterStats)
+        {
+            case CharacterStats.HP:
+                break;
+            case CharacterStats.AttackRange:
+                break;
+            default:
+                Debug.LogWarning("CHARACTER: Requesting incorrect character stats type");
+                throw new ArgumentOutOfRangeException(nameof(characterStats), characterStats, null);
+        }
+        return 0;
+    }
+}
+
+public class Character : MonoBehaviour
+{
+    public CharacterData characterData;
+    
+    public Int2Val hp = new Int2Val(100,100);
     public DamageType damageType;
     public bool defeated;
 
@@ -168,40 +211,16 @@ public class Character : MonoBehaviour
     {
         int def = 0;
 
-        switch (dt)
-        {
-            case DamageType.Physical:
-                def += attributes.defense;
-                break;
-            case DamageType.Magic:
-                def += attributes.resistance;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(dt), dt, null);
-        }
-
         return def;
     }
     public int GetDamage()
     {
         int damage = 0;
-
-        switch (damageType)
-        {
-            case DamageType.Physical:
-                damage += attributes.strength;
-                break;
-            case DamageType.Magic:
-                damage += attributes.magic;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
         
         return damage;
     }
     
-    private void Start()
+    /*private void Start()
     {
         if (attributes == null)
         {
@@ -213,7 +232,7 @@ public class Character : MonoBehaviour
     {
         attributes = new CharacterAttributes();
         level = new Level();
-    }
+    }*/
 
     public void TakeDamage(int damage)
     {
@@ -253,30 +272,21 @@ public class Character : MonoBehaviour
 
     public void AddExperience(int exp)
     {
-        level.AddExperience(exp);
-        if (level.CheckLevelUp())
-        {
-            LevelUp();
-        }
+        characterData.AddExperience(exp);
     }
 
-    private void LevelUp()
+    public int GetIntValue(CharacterStats characterStat)
     {
-        level.LevelUp();
-        LevelUpAttributes();
+        return characterData.GetIntValue(characterStat);
     }
 
-    private void LevelUpAttributes()
+    public float GetFloatValue(CharacterStats characterStat)
     {
-        for (int i = 0; i < CharacterAttributes.AttributeCount; i++)
-        {
-            int rate = levelUpRates.Get((CharacterAttributeEnum)i);
-            rate += UnityEngine.Random.Range(0, 100);
-            rate /= 100;
-            if (rate > 0)
-            {
-                attributes.Sum((CharacterAttributeEnum)i, rate);
-            }
-        }
+        return characterData.GetFloatValue(characterStat);
+    }
+
+    public void SetCharacterData(CharacterData characterData)
+    {
+        this.characterData = characterData;
     }
 }

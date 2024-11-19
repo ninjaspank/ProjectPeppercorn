@@ -29,7 +29,7 @@ public class Attack : MonoBehaviour
         characterAnimator.Attack();
         
         //check accuracy for miss
-        if (Random.value >= character.accuracy)
+        if (Random.value >= character.GetFloatValue(CharacterStats.Accuracy))
         {
             Debug.Log("ATTACK: Miss!"); 
             return;
@@ -38,7 +38,7 @@ public class Attack : MonoBehaviour
         Character target = targetGridObject.GetComponent<Character>();
         
         //check evasion
-        if (UnityEngine.Random.value <= target.dodge)
+        if (UnityEngine.Random.value <= target.GetFloatValue(CharacterStats.Dodge))
         {
             Debug.Log("ATTACK: Dodge!");
             return;
@@ -46,9 +46,9 @@ public class Attack : MonoBehaviour
 
         int damage = character.GetDamage();
 
-        if (UnityEngine.Random.value <= character.critChance)
+        if (UnityEngine.Random.value <= character.GetFloatValue(CharacterStats.CritChance))
         {
-            damage = (int)(damage * character.critDamageMulitplicator);
+            damage = (int)(damage * character.GetFloatValue(CharacterStats.CritDamageMulitplicator));
             Debug.Log("ATTACK: Critical Strike! Damage: " + damage + " instead of " + character.GetDamage());
         }
 

@@ -90,7 +90,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d5323665da7da9749a6b0802f4972443,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.39575195
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5323665da7da9749a6b0802f4972443,
         type: 3}
@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d5323665da7da9749a6b0802f4972443,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6076382
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5323665da7da9749a6b0802f4972443,
         type: 3}
@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d5323665da7da9749a6b0802f4972443,
         type: 3}
       propertyPath: m_Name
-      value: KnightCharacter_002
+      value: HeroKnight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -216,3 +216,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: 0
   attack: 0
+  defeated: 0

@@ -13,8 +13,6 @@ public class MouseInput : MonoBehaviour
     public Vector2Int positionOnGrid;
     public bool active;
 
-    [SerializeField] private TMPro.TextMeshProUGUI positionOnScreen;
-
     private void Start()
     {
         targetGrid = FindObjectOfType<StageManager>().stageGrid;
@@ -31,13 +29,13 @@ public class MouseInput : MonoBehaviour
             if (hitPosition != positionOnGrid)
             {
                 positionOnGrid = hitPosition;
-                positionOnScreen.text = "Position " + positionOnGrid.x.ToString() + ":" + positionOnGrid.y;
+
             }
         }
         else
         {
             active = false;
-            positionOnScreen.text = "Outside";
+            
         }
     }
 }

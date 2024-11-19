@@ -41,7 +41,7 @@ public class CommandInput : MonoBehaviour
             case CommandType.Attack:
                 characterAttack.CalculateAttackArea(
                     selectCharacter.selected.GetComponent<GridObject>().positionOnGrid, 
-                    selectCharacter.selected.attackRange
+                    selectCharacter.selected.GetIntValue(CharacterStats.AttackRange)
                     );
                 break;
             default:

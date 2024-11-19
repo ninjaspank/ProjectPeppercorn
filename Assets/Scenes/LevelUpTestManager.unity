@@ -399,6 +399,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4935180258550428459, guid: 1e228e5e79d124f45a73e19e81abc70a,
         type: 3}
+      propertyPath: characterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8546b06ca766b8f47967a1f3e4b10fa0,
+        type: 2}
+    - target: {fileID: 4935180258550428459, guid: 1e228e5e79d124f45a73e19e81abc70a,
+        type: 3}
       propertyPath: levelUpRates.skill
       value: 50
       objectReference: {fileID: 0}

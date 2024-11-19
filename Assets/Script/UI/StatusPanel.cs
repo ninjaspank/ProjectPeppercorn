@@ -23,17 +23,17 @@ public class StatusPanel : MonoBehaviour
     {
         hpBar.maxValue = character.hp.max;
         hpBar.value = character.hp.current;
-        characterName.text = character.Name;
+        characterName.text = character.characterData.Name;
 
-        expBar.maxValue = character.level.RequiredExperienceToLevelUp;
-        expBar.value = character.level.experience;
-        levelText.text = "LVL:" + character.level.level.ToString();
+        expBar.maxValue = character.characterData.level.RequiredExperienceToLevelUp;
+        expBar.value = character.characterData.level.experience;
+        levelText.text = "LVL:" + character.characterData.level.level.ToString();
         
-        strAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Strength));
-        magAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Magic));
-        sklAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Skill));
-        spdAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Speed));
-        defAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Defense));
-        resAttributeText.UpdateText(character.attributes.Get(CharacterAttributeEnum.Resistance));
+        strAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Strength));
+        magAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Magic));
+        sklAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Skill));
+        spdAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Speed));
+        defAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Defense));
+        resAttributeText.UpdateText(character.characterData.attributes.Get(CharacterAttributeEnum.Resistance));
     }
 }

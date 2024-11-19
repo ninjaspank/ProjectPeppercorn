@@ -30,7 +30,7 @@ public class MoveCharacter : MonoBehaviour
         pathfinding.CalculateWalkableNodes(
             gridObject.positionOnGrid.x,
             gridObject.positionOnGrid.y,
-            targetCharacter.movementPoints,
+            targetCharacter. GetFloatValue(CharacterStats.MovementPoints),
             ref walkableNodes
             );
         gridHighlight.Hide();
